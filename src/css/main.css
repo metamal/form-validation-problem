@@ -127,10 +127,13 @@ fieldset + fieldset {
     </p>
 */
 .error > input,
-.error > label {
+.error > label,
+.error > select,
+.error > .label {
   color: red;
 }
 
-.error > input {
+.error > input,
+.error > select {
   border-color: red;
 }
