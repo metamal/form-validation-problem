@@ -21,6 +21,7 @@ module.exports = {
     'import/resolver': 'webpack',
   },
   rules: {
+    'jsx-a11y/label-has-associated-control': 0,
     'react/jsx-filename-extension': ['error', { extensions: ['.js', '.jsx'] }],
   },
 };
