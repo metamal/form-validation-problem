@@ -32,10 +32,21 @@ function validationResolver(data) {
 }
 
 export default function App() {
-  const { errors, handleSubmit, register } = useForm({ validationResolver });
+  const { errors, formState, handleSubmit, register, triggerValidation } = useForm({
+    validationResolver,
+  });
+
+  // Force validation on every change after form submission to
+  // ensure that tiger_type status gets updated if tiger is
+  // selected/deselected
+  if (formState.isSubmitted) {
+    triggerValidation('tiger_type');
+  }
+
   const onSubmit = data => console.log(JSON.stringify(data, null, 2));
   const isValid = name => !errors?.[name];
   const getClass = name => (isValid(name) ? null : 'error');
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <h1>Fill out this awesome form</h1>
