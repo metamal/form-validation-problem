@@ -10,13 +10,19 @@ const App = () => {
           <label className="label" htmlFor="email">
             Email
           </label>
-          <input type="text" id="email" name="email" />
+          <input type="text" id="email" name="email" autoComplete="email" />
         </p>
         <p>
           <label className="label" htmlFor="password">
             Password
           </label>
-          <input className="error" type="password" id="password" name="username" />
+          <input
+            className="error"
+            type="password"
+            id="password"
+            name="password"
+            autoComplete="current-password"
+          />
         </p>
       </fieldset>
 
