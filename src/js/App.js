@@ -65,6 +65,8 @@ export default function App() {
   const onSubmit = data => console.log(JSON.stringify(data, null, 2));
   const isValid = name => !errors?.[name];
   const getClass = name => (isValid(name) ? null : 'error');
+  const ariaInvalid = name => (isValid(name) ? null : true);
+  const ariaMessage = name => (isValid(name) ? null : getMessageId(name));
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -75,7 +77,15 @@ export default function App() {
           <label className="label" htmlFor="email">
             Email
           </label>
-          <input type="text" id="email" name="email" autoComplete="email" ref={register} />
+          <input
+            type="text"
+            id="email"
+            name="email"
+            autoComplete="email"
+            ref={register}
+            aria-invalid={ariaInvalid('email')}
+            aria-errormessage={ariaMessage('email')}
+          />
         </p>
         <Message errors={errors} name="email" />
         <p className={getClass('password')}>
@@ -89,6 +99,8 @@ export default function App() {
             name="password"
             autoComplete="current-password"
             ref={register}
+            aria-invalid={ariaInvalid('password')}
+            aria-errormessage={ariaMessage('password')}
           />
         </p>
         <Message errors={errors} name="password" />
@@ -100,7 +112,13 @@ export default function App() {
           <label className="label" htmlFor="colour">
             Colour
           </label>
-          <select name="colour" id="colour" ref={register}>
+          <select
+            name="colour"
+            id="colour"
+            ref={register}
+            aria-invalid={ariaInvalid('colour')}
+            aria-errormessage={ariaMessage('colour')}
+          >
             <option value="">Choose colour</option>
             <option value="blue">Blue</option>
             <option value="green">Green</option>
@@ -111,7 +129,13 @@ export default function App() {
         </p>
         <Message errors={errors} name="colour" />
         <p className={getClass('animal')}>
-          <span className="label">Animal</span>
+          <span
+            className="label"
+            aria-invalid={ariaInvalid('animal')}
+            aria-errormessage={ariaMessage('animal')}
+          >
+            Animal
+          </span>
 
           <input type="checkbox" name="animal" value="bear" id="bear" ref={register} />
           <label htmlFor="bear">Bear</label>
@@ -130,7 +154,14 @@ export default function App() {
           <label className="label" htmlFor="tiger_type">
             Type of tiger
           </label>
-          <input type="text" name="tiger_type" id="tiger_type" ref={register} />
+          <input
+            type="text"
+            name="tiger_type"
+            id="tiger_type"
+            ref={register}
+            aria-invalid={ariaInvalid('tiger_type')}
+            aria-errormessage={ariaMessage('tiger_type')}
+          />
         </p>
         <Message errors={errors} name="tiger_type" />
       </fieldset>
