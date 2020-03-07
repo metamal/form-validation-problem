@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 
 // As per the HTML5 Specification
@@ -31,6 +32,24 @@ function validationResolver(data) {
   };
 }
 
+const getMessageId = name => `error-message-${name}`;
+
+function Message({ errors, name }) {
+  if (!errors?.[name]) {
+    return null;
+  }
+  const message = errors?.[name]?.message ?? 'This field is required';
+  return (
+    <p role="alert" id={getMessageId(name)}>
+      {message}
+    </p>
+  );
+}
+Message.propTypes = {
+  errors: PropTypes.shape({}).isRequired,
+  name: PropTypes.string.isRequired,
+};
+
 export default function App() {
   const { errors, formState, handleSubmit, register, triggerValidation } = useForm({
     validationResolver,
@@ -58,6 +77,7 @@ export default function App() {
           </label>
           <input type="text" id="email" name="email" autoComplete="email" ref={register} />
         </p>
+        <Message errors={errors} name="email" />
         <p className={getClass('password')}>
           <label className="label" htmlFor="password">
             Password
@@ -71,6 +91,7 @@ export default function App() {
             ref={register}
           />
         </p>
+        <Message errors={errors} name="password" />
       </fieldset>
 
       <fieldset>
@@ -88,6 +109,7 @@ export default function App() {
             <option value="brown">Brown</option>
           </select>
         </p>
+        <Message errors={errors} name="colour" />
         <p className={getClass('animal')}>
           <span className="label">Animal</span>
 
@@ -103,12 +125,14 @@ export default function App() {
           <input type="checkbox" name="animal" value="donkey" id="donkey" ref={register} />
           <label htmlFor="donkey">Donkey</label>
         </p>
+        <Message errors={errors} name="animal" />
         <p className={getClass('tiger_type')}>
           <label className="label" htmlFor="tiger_type">
             Type of tiger
           </label>
           <input type="text" name="tiger_type" id="tiger_type" ref={register} />
         </p>
+        <Message errors={errors} name="tiger_type" />
       </fieldset>
       <fieldset>
         <p>
